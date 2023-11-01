@@ -6,11 +6,20 @@ from random import randint
 
 #Iniciando o construtor para construção do jogo
 pygame.init()
+#Adicionando o valor do volume para a música de fundo
+pygame.mixer.music.set_volume(0.6)
+#Atribuindo a variável musica_fundo uma música de fundo
+musica_fundo = pygame.mixer.music.load('musica.mp3')
 
+pygame.mixer.music.play(-1)
+#Adicionando um barulho para som de colisão
+barulho_colisao = pygame.mixer.Sound('sm64_coin.wav')
+
+#barulho_colisao.set_volume(0.6) barulo do som de colisão
 largura = 640
 altura = 480
-x=largura/2
-y=altura/2
+x=int(largura/2)
+y=int((altura/2))
 
 x_azul = randint(40,600)
 y_azul = randint(50,430)
@@ -75,6 +84,8 @@ while True:
         y_azul = randint(50,430)
         #Incrementando os pontos quando houver colisão
         pontos = pontos + 1
+        #Toda vez que ouver uma colisão será tocado o  som que estiver atribuido a barulho_colisao
+        barulho_colisao.play()
     #Criando um circulo no jogo
     """
                # Tela / Cor do objeto / posição do objeto + raio
