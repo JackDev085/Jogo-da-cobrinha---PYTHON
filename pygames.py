@@ -2,6 +2,7 @@
 import pygame
 from pygame.locals import *
 from sys import exit
+from random import randint
 
 #Iniciando o construtor para construção do jogo
 pygame.init()
@@ -10,6 +11,8 @@ largura = 640
 altura = 480
 x=largura/2
 y=altura/2
+x_azul = randint(40,600)
+y_azul = randint(50,430)
 #criando a tela de exibição do jogo parametrizado por largura e altura
 tela = pygame.display.set_mode((largura,altura))
 #Renomeando o nome da janela que exibirá o jogo
@@ -55,9 +58,15 @@ while True:
         y = y - 20
     # Criando um retângulo no jogo
     # Tela / Cor do objeto / posição do objeto + especificações
-    pygame.draw.rect(tela,(255,0,0),(x,y,40,50))
+    ret_azul = pygame.draw.rect(tela,(255,0,0),(x,y,40,50))
+    #Criando um novo retângulo
+    ret_vermelho = pygame.draw.rect(tela, (0, 0, 255), (x_azul, y_azul, 40, 50))
 
-            #Criando um circulo no jogo
+    #Adicionando um evento de colisão
+    if ret_vermelho.colliderect(ret_azul):
+        x_azul = randint(40,600)
+        y_azul = randint(50,430)
+    #Criando um circulo no jogo
     """
                # Tela / Cor do objeto / posição do objeto + raio
     pygame.draw.circle(tela,(0,0,255),(300,260),40)
