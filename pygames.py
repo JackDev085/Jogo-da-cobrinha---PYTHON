@@ -11,8 +11,12 @@ largura = 640
 altura = 480
 x=largura/2
 y=altura/2
+
 x_azul = randint(40,600)
 y_azul = randint(50,430)
+
+pontos = 0
+fonte = pygame.font.SysFont('times new roman', 40,True,True)
 #criando a tela de exibição do jogo parametrizado por largura e altura
 tela = pygame.display.set_mode((largura,altura))
 #Renomeando o nome da janela que exibirá o jogo
@@ -28,6 +32,9 @@ while True:
     relogio.tick(30)
     #Preenche toda a tela com a cor especificada
     tela.fill((0,0,0))
+
+    mensagem = f'Pontos: {pontos}'
+    texto_formatado = fonte.render(mensagem, True, (255,255,255))
     #Para cada evento que acontecer no jogo
     for event in pygame.event.get():
         #Se o evento for sair do jogo ele irá fechar
@@ -66,6 +73,8 @@ while True:
     if ret_vermelho.colliderect(ret_azul):
         x_azul = randint(40,600)
         y_azul = randint(50,430)
+        #Incrementando os pontos quando houver colisão
+        pontos = pontos + 1
     #Criando um circulo no jogo
     """
                # Tela / Cor do objeto / posição do objeto + raio
@@ -75,6 +84,8 @@ while True:
     pygame.draw.line(tela, (255,255,0),(390,0),(390,600),6)
     #Atualizando o display após o término de todos os eventos
     """
+    #Exibindo o texto formatado na cordenada desejada
+    tela.blit(texto_formatado, (450, 40))
     pygame.display.update()
 
 
