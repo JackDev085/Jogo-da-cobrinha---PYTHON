@@ -40,10 +40,25 @@ pygame.display.set_caption('Jogo')
 relogio = pygame.time.Clock()
 lista_cobra = []
 comprimento_inicial = 5
+morreu = False
+
 def aumenta_cobra(lista_cobra):
     for xey in lista_cobra:
 
         pygame.draw.rect(tela, (0,255,0), (xey[0],xey[1],20,20))
+
+def reiniciar_jogo():
+    global pontos,comprimento_inicial,x_cobra,y_cobra,lista_cobra,lista_cabeca,x_maca, y_maca,morreu
+    pontos = 0
+    comprimento_inicial = 5
+    x_cobra = int(largura / 2)
+    y_cobra = int((altura / 2))
+    lista_cobra = []
+    lista_cabeca = []
+    x_maca = randint(40,600)
+    y_maca = randint(50,430)
+    morreu = False
+
 #Loop principal do jogo para que ele possa continuar
 while True:
     #Adiciona o tempo de velocidade do jogo
@@ -112,6 +127,16 @@ while True:
 
     lista_cobra.append(lista_cabeca)
 
+    if lista_cobra.count(lista_cabeca) > 1:
+        morreu = True
+        while morreu:
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    pygame.quit()
+                    exit()
+                    if event.type == KEYDOWN:
+                        if event_key == K_r:
+                            reiniciar_jogo()
     if len(lista_cobra) > comprimento_inicial:
         del lista_cobra[0]
     aumenta_cobra(lista_cobra)
